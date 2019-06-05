@@ -10,7 +10,7 @@ public class Pager implements CustomObserver {
     private static final Logger logger = LoggerFactory.getLogger(Pager.class);
 
     @Override
-    public void notifyObservers(Message message) {
+    public void update(Message message) {
         if (logger.isInfoEnabled()) {
             logger.info(
                     MessageFormat.format("{0} -> {1}",

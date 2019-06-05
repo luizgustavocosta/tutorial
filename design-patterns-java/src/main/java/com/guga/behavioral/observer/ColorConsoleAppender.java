@@ -8,12 +8,12 @@ public class ColorConsoleAppender extends ConsoleAppender {
 
     @Override
     protected void subAppend(final LoggingEvent event) {
-        int color = 34;
-        if (event.getRenderedMessage().contains(CellPhone.class.getName())) {
+        int color = 38;
+        if (event.getRenderedMessage().contains("CellPhone")) {
             color = 32;
         } else if (event.getRenderedMessage().contains(SmartPhone.class.getName())) {
             color = 31;
-        } else if (event.getRenderedMessage().contains(Pager.class.getName())) {
+        } else if (!event.getRenderedMessage().contains(SmartPhone.class.getName())) {
             color = 33;
         }
         qw.write("\u001b[0;" + color + "m");

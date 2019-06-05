@@ -32,7 +32,7 @@ public class MessagePublisher implements Subject {
     }
 
     @Override
-    public void notifyObservers(Message message) {
-        observers.forEach(observer ->  observer.notifyObservers(message));
+    public void update(Message message) {
+        observers.forEach(observer ->  observer.update(message));
     }
 }

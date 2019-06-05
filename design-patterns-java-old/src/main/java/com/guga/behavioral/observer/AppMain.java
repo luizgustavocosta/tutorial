@@ -23,11 +23,11 @@ public class AppMain {
 
         Stream.of(cellPhone, smartPhone, pager).forEach(messagePublisher::attach);
 
-        messagePublisher.notifyObservers(new Message("First message"));
+        messagePublisher.update(new Message("First message"));
 
         messagePublisher.detach(pager);
 
-        messagePublisher.notifyObservers(new Message("Second message"));
+        messagePublisher.update(new Message("Second message"));
     }
 
 }

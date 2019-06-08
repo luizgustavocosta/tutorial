@@ -1,45 +1,54 @@
 package com.guga.behavioral.observer;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.SubmissionPublisher;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class AppMain {
 
+    private static final Logger logger = LoggerFactory.getLogger(AppMain.class);
 
-    private static final org.slf4j.Logger logger = LoggerFactory.
-            getLogger(AppMain.class);
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         logger.info("Init");
-        SubmissionPublisher<Message> publisher = new SubmissionPublisher<>();
+        MessagePublisher<Message> publisher = new MessagePublisher<>();
 
-        Stream.of(new CellPhone(), new SmartPhone())
+        final CellPhone cellPhone = new CellPhone();
+        final SmartPhone smartPhone = new SmartPhone();
+        final Pager pager = new Pager();
+        Stream.of(cellPhone, smartPhone, pager)
                 .forEach(publisher::subscribe);
 
         logger.info("Subscribers added");
-
         logger.info("Creating messages");
 
         Stream.iterate(1, n -> n + 1)
-                .map(m -> new Message("Message "+m))
+                .parallel()
+                .map(n -> new Message("Message "+n))
                 .limit(10)
                 .collect(Collectors.toList())
-                /*.forEach(message -> publisher.offer(message, 10, TimeUnit.SECONDS,
-                        (subscriber, messageConsumer) -> {
-                            subscriber.onError(
-                                    new RuntimeException("Hey " + subscriber +
-                                            "something bad happened"));
-                            return false;}));
-                */
                 .forEach(publisher::submit);
         try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.info("Wait 1_000 millis....");
+            Thread.sleep(1_000);
+        } catch (InterruptedException exception) {
+            logger.error("Error ", exception);
+            throw exception;
         }
+
+        logger.info("Let's cancel the subscription to electronic device Pager");
+        pager.getSubscription().cancel();
+        publisher.submit(new Message("Other message"));
+
+        logger.info("Let's close the publisher");
         publisher.close();
+
+        try {
+            Thread.sleep(1_000);
+        } catch (InterruptedException exception) {
+            logger.error("Error ", exception);
+            throw exception;
+        }
     }
 }

@@ -4,17 +4,17 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class SmartPhone extends ElectronicDevice {
+public class Pager extends ElectronicDevice {
 
     private AtomicInteger receivedMessages = new AtomicInteger();
 
-    SmartPhone() {
+    Pager() {
         log = LoggerFactory.getLogger(this.getClass());
     }
 
     @Override
     public void onNext(Message item) {
-        logConsoleMessage("Reflection Reflection I've "+(receivedMessages.incrementAndGet())+" new messages. Content -> "+item);
-        subscription.request(1);
+        logConsoleMessage("Bipi bibi I've  "+(receivedMessages.incrementAndGet())+" new messages. Content ->"+item);
+        //subscription.request(1);
     }
 }

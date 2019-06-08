@@ -2,42 +2,20 @@ package com.guga.behavioral.observer;
 
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
-import java.util.concurrent.Flow;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class CellPhone<T> implements Flow.Subscriber<T> {
+public class CellPhone extends ElectronicDevice {
 
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(CellPhone.class);
+    private AtomicInteger receivedMessages = new AtomicInteger();
 
-    private Flow.Subscription subscription;
-    private int count = 0;
+    CellPhone() {
+        log = LoggerFactory.getLogger(this.getClass());
+    }
 
     @Override
-    public void onSubscribe(Flow.Subscription subscription) {
-        this.subscription = subscription;
+    public void onNext(Message item) {
+        logConsoleMessage("Hello Moto I've  "+(receivedMessages.incrementAndGet())+" new messages. Content ->"+item);
         subscription.request(1);
     }
 
-    @Override
-    public void onNext(T item) {
-        ++count;
-        log("Message "+count+" arrived at CellPhone");
-        subscription.request(1);
-    }
-
-    @Override
-    public void onError(Throwable throwable) {
-        log.error("New error on CellPhone", throwable);
-    }
-
-    @Override
-    public void onComplete() {
-        log.info("It is done");
-    }
-
-    private void log(final String logMessage) {
-        //if (log.isInfoEnabled()) {
-            log.info(MessageFormat.format("{0}{1}","<=========== : " , logMessage));
-        //}
-    }
 }

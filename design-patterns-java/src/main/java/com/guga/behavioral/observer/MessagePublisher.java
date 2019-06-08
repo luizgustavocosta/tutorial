@@ -1,17 +1,11 @@
 package com.guga.behavioral.observer;
 
-import java.util.concurrent.Flow;
+import java.util.concurrent.SubmissionPublisher;
 
-public class MessagePublisher implements Flow.Publisher<Message> {
-
-    private boolean subscribed;
+public class MessagePublisher<Message> extends SubmissionPublisher<Message> {
 
     @Override
-    public void subscribe(Flow.Subscriber<? super Message> subscriber) {
-        if (subscribed) {
-        } else {
-            subscribed = true;
-            subscriber.onComplete();
-        }
+    public int submit(Message item) {
+        return super.submit(item);
     }
 }

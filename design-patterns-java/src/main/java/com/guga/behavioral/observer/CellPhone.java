@@ -14,7 +14,7 @@ public class CellPhone extends ElectronicDevice {
 
     @Override
     public void onNext(Message item) {
-        logConsoleMessage("Hello Moto I've  "+(receivedMessages.incrementAndGet())+" new messages. Content ->"+item);
+        logConsoleMessage("Hello Moto I've  "+(receivedMessages.incrementAndGet())+" new messages.");
         subscription.request(1);
     }
 

@@ -15,6 +15,6 @@ public class Pager extends ElectronicDevice {
     @Override
     public void onNext(Message item) {
         logConsoleMessage("Bipi bibi I've  "+(receivedMessages.incrementAndGet())+" new messages. Content ->"+item);
-        //subscription.request(1);
+        subscription.request(1);
     }
 }

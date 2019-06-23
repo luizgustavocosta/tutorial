@@ -8,7 +8,7 @@ import java.util.function.UnaryOperator;
 
 public class AllNumbersTest implements WithAssertions {
 
-    private UnaryOperator<String> functionDescription = s -> "Instance of "+s+" class";
+    private UnaryOperator<String> functionDescription = className -> "Instance of "+className+" class";
 
     @Test
     public void givenAPrimitiveWhenCheckTheInstanceThenReturnTheWrapperClass() {

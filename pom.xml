@@ -11,6 +11,7 @@
     <modules>
         <module>design-patterns-java</module>
         <module>design-patterns-java-old</module>
+        <module>numbers</module>
     </modules>
 
     <properties>

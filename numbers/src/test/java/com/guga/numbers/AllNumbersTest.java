@@ -3,12 +3,12 @@ package com.guga.numbers;
 import org.assertj.core.api.WithAssertions;
 import org.junit.Test;
 
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 
 public class AllNumbersTest implements WithAssertions {
 
-    private Function<String, String> functionDescription = s -> "Instance of "+s+" class";
+    private UnaryOperator<String> functionDescription = s -> "Instance of "+s+" class";
 
     @Test
     public void givenAPrimitiveWhenCheckTheInstanceThenReturnTheWrapperClass() {
